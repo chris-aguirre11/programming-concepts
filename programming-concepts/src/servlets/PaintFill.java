@@ -30,7 +30,20 @@ public class PaintFill extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PaintFillFunction pFill = new PaintFillFunction(3, 3);
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String nRows = request.getParameter("nRows"); 
+		String nColumns = request.getParameter("nColumns"); 
+		
+		PaintFillFunction pFill = new PaintFillFunction(Integer.parseInt(nRows), Integer.parseInt(nColumns));
+		request.setAttribute("colorArray", pFill.colorArray);
+		request.getRequestDispatcher("index.jsp").forward(request, response);
+		
 		pFill.fill2DArrayWithInitialColors();
 		pFill.printContentsOf2DArray();
         
@@ -38,13 +51,6 @@ public class PaintFill extends HttpServlet {
         pFill.executepaintFill(2, 1, newFillColor);
         
         pFill.printContentsOf2DArray();
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 }
