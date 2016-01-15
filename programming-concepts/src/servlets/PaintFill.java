@@ -41,16 +41,18 @@ public class PaintFill extends HttpServlet {
 		String nColumns = request.getParameter("nColumns"); 
 		
 		PaintFillFunction pFill = new PaintFillFunction(Integer.parseInt(nRows), Integer.parseInt(nColumns));
+		pFill.fill2DArrayWithInitialColors();
+		pFill.printContentsOf2DArray();
+		
 		request.setAttribute("colorArray", pFill.colorArray);
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 		
-		pFill.fill2DArrayWithInitialColors();
-		pFill.printContentsOf2DArray();
+		
         
-        Color newFillColor = new Color(255, 255, 0);    //yellow
-        pFill.executepaintFill(2, 1, newFillColor);
-        
-        pFill.printContentsOf2DArray();
+//        Color newFillColor = new Color(255, 255, 0);    //yellow
+//        pFill.executepaintFill(2, 1, newFillColor);
+//        
+//        pFill.printContentsOf2DArray();
 	}
 
 }
