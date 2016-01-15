@@ -18,46 +18,49 @@
 <body>
 	<form action="PaintFill" method="POST">
 	
-	Enter nRows	(between 1 and 3):
-  	<input type="number" name="nRows" min="1" max="3"> <br><br>
+	Enter nRows	(between 1 and 5):
+  	<input type="number" name="nRows" min="1" max="5"> <br><br>
   	
-  	Enter nColumns (between 1 and 3):
-  	<input type="number" name="nColumns" min="1" max="3"> <br><br>
+  	Enter nColumns (between 1 and 5):
+  	<input type="number" name="nColumns" min="1" max="5"> <br><br>
   	
     <input type="submit" value="Submit" /> 
     <br><br>
+   
+    <!--TODO: Need to get the grid cells ppulating with correct color based on Color object in Java array-->
     
-    <table>
-    	<c:forEach var="color" items="${colorArray}" >
-    		<tr>
-    			<td>${color}</td>
-    		</tr>
+    <canvas id="myCanvas" width="500" height="500"></canvas>
+    
+    <c:set var="rowCount" value="0" scope="page" />
+    <c:forEach var="rows" items="${colorArray}" >
+	
+    	<c:set var="columnCount" value="0" scope="page" />
+    	<c:forEach var="columns" items="${rows}" >
+    	
+    		<c:set var="currentRedValue" value="columns.getRed()" scope="page" />
+    		
+    		  	<script>
+	    		  var canvas = document.getElementById('myCanvas');
+	    		  var square = canvas.getContext('2d');
+	    		  square.beginPath();
+	    		  square.rect("${columnCount}", "${rowCount}", 100, 100);
+	    		  /* square.fillStyle = 'yellow'; */
+	    	     /*  square.fillStyle = 'rgb(255,255,0)'; */
+	    	       square.fillStyle = 'rgb(' + ${rowCount} + ',255,0)'; 
+	    	   
+	    		  
+	    		  square.fill();
+	    		  square.lineWidth = 2;
+	    		  square.strokeStyle = 'black';
+	    		  square.stroke();
+    			</script>
+    		<c:set var="columnCount" value="${columnCount + 100}" scope="page"/>		
+    		
     	</c:forEach>
-    </table>
-    
-	<!-- <canvas id="myCanvas" width="578" height="200"></canvas>
-    <script>
-      var canvas = document.getElementById('myCanvas');
-      var context = canvas.getContext('2d');
-      context.beginPath();
-      context.rect(0, 0, 100, 100);
-      context.fillStyle = 'yellow';
-      context.fill();
-      context.lineWidth = 2;
-      context.strokeStyle = 'black';
-      context.stroke();
-      
-      var rectangle2 = canvas.getContext('2d');
-      rectangle2.beginPath();
-      rectangle2.rect(100, 100, 100, 100);
-      rectangle2.fillStyle = 'blue';
-      rectangle2.fill();
-      rectangle2.lineWidth = 2;
-      rectangle2.strokeStyle = 'black';
-      rectangle2.stroke();
-    </script> -->
-    
-    
+    	
+    	<c:set var="rowCount" value="${rowCount + 100}" scope="page"/>
+    </c:forEach>
+   
 </form>
     
 </body>
