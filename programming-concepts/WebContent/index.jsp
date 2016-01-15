@@ -37,7 +37,15 @@
     	<c:set var="columnCount" value="0" scope="page" />
     	<c:forEach var="columns" items="${rows}" >
     	
-    		<c:set var="currentRedValue" value="columns.getRed()" scope="page" />
+    		<c:set var="currentRedValue" value="${columns.getRed()}" scope="page" />
+    		<c:set var="currentGreenValue" value="${columns.getGreen()}" scope="page" />
+    		<c:set var="currentBlueValue" value="${columns.getBlue()}" scope="page" />
+    		
+    		<c:if test="${empty currentRedValue}">
+			    <c:set var="currentRedValue" value="255" scope="page"/>
+	    		<c:set var="currentGreenValue" value="255" scope="page"/>
+	    		<c:set var="currentBlueValue" value="255" scope="page"/>
+			</c:if>
     		
     		  	<script>
 	    		  var canvas = document.getElementById('myCanvas');
@@ -46,7 +54,9 @@
 	    		  square.rect("${columnCount}", "${rowCount}", 100, 100);
 	    		  /* square.fillStyle = 'yellow'; */
 	    	     /*  square.fillStyle = 'rgb(255,255,0)'; */
-	    	       square.fillStyle = 'rgb(' + ${rowCount} + ',255,0)'; 
+	    	     
+	    	    
+	    	       square.fillStyle = 'rgb(' + ${currentRedValue} + ',' + ${currentGreenValue} + ',' + ${currentBlueValue} + ')';
 	    	   
 	    		  
 	    		  square.fill();
