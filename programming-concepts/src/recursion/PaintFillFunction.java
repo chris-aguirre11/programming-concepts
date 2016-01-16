@@ -236,8 +236,13 @@ public class PaintFillFunction {
             return "blue";
         else if( (red == 255) && (green == 255) && (blue == 0))
             return "yellow";
-        else return "UNDEFINED";
+        else {
+        	StringBuilder sb = new StringBuilder();
+        	sb.append(Integer.toHexString(red));
+        	sb.append(Integer.toHexString(green));
+        	sb.append(Integer.toHexString(blue));
+        	return sb.toString();
+        }
     }
-
 }
 

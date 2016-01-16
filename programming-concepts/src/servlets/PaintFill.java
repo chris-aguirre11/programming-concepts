@@ -17,6 +17,8 @@ import recursion.PaintFillFunction;
 @WebServlet("/PaintFill")
 public class PaintFill extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	PaintFillFunction pFill = null;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -37,22 +39,35 @@ public class PaintFill extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String nRows = request.getParameter("nRows"); 
 		String nColumns = request.getParameter("nColumns"); 
+//		PaintFillFunction pFill = null;
 		
-		PaintFillFunction pFill = new PaintFillFunction(Integer.parseInt(nRows), Integer.parseInt(nColumns));
-		pFill.fill2DArrayWithInitialColors();
-		pFill.printContentsOf2DArray();
-		
-		request.setAttribute("colorArray", pFill.colorArray);
-		request.getRequestDispatcher("index.jsp").forward(request, response);
-		
-		
-        
-//        Color newFillColor = new Color(255, 255, 0);    //yellow
-//        pFill.executepaintFill(2, 1, newFillColor);
-//        
-//        pFill.printContentsOf2DArray();
+		if(nRows != null) {
+			pFill = new PaintFillFunction(Integer.parseInt(nRows), Integer.parseInt(nColumns));
+			pFill.fill2DArrayWithInitialColors();
+			pFill.printContentsOf2DArray();
+			
+			request.setAttribute("colorArray", pFill.colorArray);
+			request.getRequestDispatcher("index.jsp").forward(request, response);
+		}
+		else {
+			String newFillColor = request.getParameter("newFillColor"); 
+			String paintFillnRow = request.getParameter("paintFillnRow"); 
+			String paintFillnColumn = request.getParameter("paintFillnColumn"); 
+			
+			// Convert Hex Color value from UI to Hex Values for Color object creation
+			Color newFillColorObject = new Color(
+					 Integer.parseInt(newFillColor.substring(0, 2), 16), 
+					 Integer.parseInt(newFillColor.substring(2, 4), 16),
+					 Integer.parseInt(newFillColor.substring(4, 6), 16) );
+					 
+		     pFill.executepaintFill(Integer.parseInt(paintFillnRow), Integer.parseInt(paintFillnColumn), newFillColorObject);  
+		     pFill.printContentsOf2DArray();
+		     
+		     request.setAttribute("colorArray", pFill.colorArray);
+			 request.getRequestDispatcher("index.jsp").forward(request, response);
+		}
 	}
-
 }

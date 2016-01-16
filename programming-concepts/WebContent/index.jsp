@@ -4,9 +4,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>Insert title here</title>
+	<script src="jscolor-2.0.4/jscolor.js"></script>
+	
 	<style>
       body {
         margin: 0px;
@@ -16,20 +17,41 @@
     
 </head>
 <body>
+
 	<form action="PaintFill" method="POST">
+		Enter nRows	(between 3 and 5):
+	  	<input type="number" name="nRows" min="3" max="5"> <br><br>
+	  	
+	  	Enter nColumns (between 3 and 5):
+	  	<input type="number" name="nColumns" min="3" max="5"> <br><br>
+	  	
+	    <input type="submit" value="Populate Grid with Initial Colors" /> 
+	    <br><br>
+	</form>
 	
-	Enter nRows	(between 1 and 5):
-  	<input type="number" name="nRows" min="1" max="5"> <br><br>
-  	
-  	Enter nColumns (between 1 and 5):
-  	<input type="number" name="nColumns" min="1" max="5"> <br><br>
-  	
-    <input type="submit" value="Submit" /> 
-    <br><br>
-   
-    <!--TODO: Need to get the grid cells ppulating with correct color based on Color object in Java array-->
-    
-    <canvas id="myCanvas" width="500" height="500"></canvas>
+	<form action="PaintFill" method="POST">
+		<p style="text-indent: 5em;">
+			Choose a new fill color:
+		    <input name="newFillColor" type="hidden" id="color_value" value="99cc00">
+		    <button class="jscolor {valueElement: 'color_value'}">Pick a color</button> <br><br>
+		</p>
+	
+	    <p style="text-indent: 5em;">
+			Enter paint fill nRows cell:
+			<input type="number" name="paintFillnRow" min="0" max="4"> <br><br>
+		</p>
+		
+		<p style="text-indent: 5em;">
+			Enter paint fill nColumns cell:
+			<input type="number" name="paintFillnColumn" min="0" max="4"> <br><br>
+		</p>
+		
+		<p style="text-indent: 5em;">
+			<input type="submit" value="Execute Paint Fill" />
+		</p>
+	</form>
+
+<canvas id="myCanvas" width="500" height="500"></canvas>
     
     <c:set var="rowCount" value="0" scope="page" />
     <c:forEach var="rows" items="${colorArray}" >
@@ -70,8 +92,6 @@
     	
     	<c:set var="rowCount" value="${rowCount + 100}" scope="page"/>
     </c:forEach>
-   
-</form>
     
 </body>
 </html>
