@@ -29,6 +29,8 @@
 	    <br><br>
 	</form>
 	
+	
+	<!-- Using nice Javascript Color Picker from http://jscolor.com/examples/#example-sending-forms -->
 	<form action="PaintFill" method="POST">
 		<p style="text-indent: 5em;">
 			Choose a new fill color:
